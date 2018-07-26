@@ -7,7 +7,7 @@ module.exports = displayIntegerInput
 
 ----------------------- */
 
-function displayIntegerInput{name, theme: {classes: css}}) {
+function displayIntegerInput({name, theme: {classes: css}}) {
 
   var input = bel`<input class=${css.inputField} placeholder='123'>`
 

@@ -1,6 +1,8 @@
 var bel = require('bel')
 var csjs = require('csjs-inject')
 
+module.exports = displayIntegerInput
+
 var fonts = [
   'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
   'https://fonts.googleapis.com/css?family=Overpass+Mono" rel="stylesheet'
@@ -26,9 +28,9 @@ var colors = {
 
 function displayIntegerInput() {
 
-var input = bel`<input placeholder='123'>`
+var input = bel`<input class=${css.inputField} placeholder='123'>`
 
-var el = bel`
+return bel`
   <div class=${css.inputContainer}>
     <div class=${css.inputTitle}>integer</div>
     <div class=${css.inputFields}>
@@ -56,7 +58,6 @@ function decrement (e) {
   input.value = value
 }
 
-document.body.appendChild(el)
 }
 
 var css = csjs`
@@ -96,7 +97,7 @@ var css = csjs`
   .icon {
     color: ${colors.white};
   }
-  input {
+  .inputField {
     ${inputStyle()}
     font-size: 1em;
     color: ${colors.slateGrey};
@@ -104,7 +105,7 @@ var css = csjs`
     align-items: stretch;
     text-align: center;
   }
-  input::placeholder {
+  .inputField::placeholder {
     color: ${colors.white};
     text-align: center;
   }
@@ -117,5 +118,3 @@ function inputStyle () {
     padding: 5px 10px;
   `
 }
-
-displayIntegerInput()

@@ -1,0 +1,33 @@
+{
+  "name": "input-integer",
+  "version": "1.0.0",
+  "description": "An integer-input-type component built with bel and csjs-inject",
+  "main": "index.js",
+  "scripts": {
+    "start": "budo src/index.js:bundle.js --dir ./ --live --open",
+    "build": "browserify src/index.js > bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ninabreznik/input-integer.git"
+  },
+  "keywords": [
+    "integer",
+    "input",
+    "bel",
+    "csjs-inject"
+  ],
+  "author": "ninabreznik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ninabreznik/input-integer/issues"
+  },
+  "homepage": "https://github.com/ninabreznik/input-integer#readme",
+  "devDependencies": {
+    "budo": "^11.3.2"
+  },
+  "dependencies": {
+    "bel": "^6.0.0",
+    "csjs-inject": "^1.0.1"
+  }
+}

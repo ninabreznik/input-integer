@@ -1,6 +1,6 @@
 {
   "name": "input-integer",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "An integer-input-type component built with bel and csjs-inject",
   "main": "src/index.js",
   "scripts": {

@@ -1,6 +1,6 @@
 var bel = require('bel')
 var csjs = require('csjs-inject')
-var validateInput = require('validate-input')
+var validator = require('solidity-validator')
 
 module.exports = displayIntegerInput
 
@@ -8,10 +8,9 @@ module.exports = displayIntegerInput
 
 ----------------------- */
 
-function displayIntegerInput({theme: {classes: css}, type}) {
-  var num = bel`<input class=${css.integerValue} min="" max="" value="50" oninput=${(e)=>sliderUpdate(e)} onkeydown=${(e)=>keysUpdating(e)}>`
-  var slider = bel`<input class=${css.integerSlider} type="range" min="" max="" value="50" step="1" oninput=${(e)=>numUpdate(e)}>`
-  var type = intOrUint(type)
+function displayIntegerInput({theme: {classes: css}, type, cb}) {
+  var num = bel`<input class=${css.integerValue} min="" max="" value="50" oninput=${(e)=>sliderUpdate(e, type)} onkeydown=${(e)=>keysUpdating(e, type)}>`
+  var slider = bel`<input class=${css.integerSlider} type="range" min="" max="" value="50" step="1" oninput=${(e)=>numUpdate(e, type)}>`
 
   return bel`
     <div class=${css.integerField}>
@@ -19,11 +18,18 @@ function displayIntegerInput({theme: {classes: css}, type}) {
       ${num}
     </div>
   `
-  function numUpdate (e) {
-    num.value = e.target.value;
+  function numUpdate (e, type) {
+    num.value = e.target.value
+    validate(e, type)
   }
 
-  function keysUpdating (e) {
+  function validate (e, type) {
+    var msg = validator.getMessage(type, e.target.value)
+    if (msg) cb(msg)
+    else cb(null)
+  }
+
+  function keysUpdating (e, type) {
     var key = e.which
     var val = parseInt(e.target.value)
     if (key === 38 && val != slider.max) {
@@ -32,26 +38,15 @@ function displayIntegerInput({theme: {classes: css}, type}) {
     else if (key === 40 && val != slider.min) {
       slider.value = num.value = val - 1
     }
+    validate(e, type)
   }
 
-  function sliderUpdate (e) {
+  function sliderUpdate (e, type) {
     if (e.target.value === '') {
       slider.value = num.value = 0
     } else {
       slider.value = e.target.value
     }
+    validate(e, type)
   }
-
-  function intOrUint (t) {
-    var type = t.search(/\bint/) != -1 ? 'int' : 'uint'
-    if (type === 'int') {
-      slider.min = num.min = -100
-      slider.max = num.max = 100
-    }
-    else if (type === 'uint') {
-      slider.min = num.min = 0
-      slider.max = num.max = 100
-    }
-  }
-
 }

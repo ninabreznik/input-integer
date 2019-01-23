@@ -9,7 +9,6 @@ module.exports = displayIntegerInput
 ----------------------- */
 
 function displayIntegerInput({theme: {classes: css}, type, cb}) {
-  type = 'int24 '
   var range = getRange(type)
   var min = validator.getRange(type).MIN
   var max = validator.getRange(type).MAX

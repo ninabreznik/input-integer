@@ -9,9 +9,10 @@ module.exports = displayIntegerInput
 ----------------------- */
 
 function displayIntegerInput({theme: {classes: css}, type, cb}) {
-  var num = bel`<input class=${css.integerValue} min="" max="" value="50" oninput=${(e)=>sliderUpdate(e, type)} onkeydown=${(e)=>keysUpdating(e, type)}>`
-  var slider = bel`<input class=${css.integerSlider} type="range" min="" max="" value="50" step="1" oninput=${(e)=>numUpdate(e, type)}>`
-
+  var num = bel`<input class=${css.integerValue} min=${validator.getRange(type).MIN} max=${validator.getRange(type).MAX} value="0" oninput=${(e)=>sliderUpdate(e, type)} onkeydown=${(e)=>keysUpdating(e, type)}>`
+  var slider = bel`<input class=${css.integerSlider} type="range" min=${validator.getRange(type).MIN} max=${validator.getRange(type).MAX} value="0" step="1" oninput=${(e)=>numUpdate(e, type)}>`
+  console.log('MESSAGE')
+  console.log(validator.getMessage('uint256', '33'))
   return bel`
     <div class=${css.integerField}>
       ${slider}

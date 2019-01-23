@@ -1,6 +1,7 @@
 var bel = require('bel')
 var csjs = require('csjs-inject')
 var validator = require('solidity-validator')
+var bigNumber = require('bignumber.js')
 
 module.exports = displayIntegerInput
 
@@ -9,11 +10,12 @@ module.exports = displayIntegerInput
 ----------------------- */
 
 function displayIntegerInput({theme: {classes: css}, type, cb}) {
+  var range = getRange(type)
   var min = validator.getRange(type).MIN
   var max = validator.getRange(type).MAX
   var title = `Valid values for type ${type} are from ${min} to ${max}`
-  var num = bel`<input type="text" class=${css.integerValue} title=${title} min=${min} max=${max} value="0" oninput=${(e)=>sliderUpdate(e, type)} onkeydown=${(e)=>keysUpdating(e, type)}>`
-  var slider = bel`<input class=${css.integerSlider} type="range" title=${title} min=${min} max=${max} value="0" step="1" oninput=${(e)=>numUpdate(e, type)}>`
+  var num = bel`<input type="text" class=${css.integerValue} value="0" oninput=${(e)=>sliderUpdate(e, type)} onkeydown=${(e)=>keysUpdating(e, type)}>`
+  var slider = bel`<input class=${css.integerSlider} type="range" title=${title} min=${min} max=${max} value="0" step=${range} oninput=${(e)=>numUpdate(e, type)}>`
   return bel`
     <div class=${css.integerField}>
       ${slider}
@@ -21,8 +23,18 @@ function displayIntegerInput({theme: {classes: css}, type, cb}) {
     </div>
   `
   function numUpdate (e, type) {
-    num.value = e.target.value
+    num.value = num.title = bigNumber(e.target.value).toFixed(0)
     validate(e, type)
+  }
+
+  function getRange (type) {
+    var size = type.split('int')[1] // get integer size (8, 16, 256 etc.)
+    // set the step size for each integer size
+    if (size < 16) return "1"
+    if (size < 24) return "1000"
+    if (size < 32) return "100000"
+    if (size < 256) return "100000000000"
+    if (size <= 256) return "500000000000000000000000000000000000000000000000000000000000000000000000000"
   }
 
   function validate (e, type) {

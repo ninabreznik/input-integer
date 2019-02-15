@@ -22,7 +22,7 @@ function displayIntegerInput({theme: {classes: css}, type, cb}) {
     </div>
   `
   function numUpdate (e, type) {
-    num.value = num.title = e.target.value
+    num.value = num.title = bigNumber(e.target.value).toFixed(0)
     validate(e, type)
   }
 

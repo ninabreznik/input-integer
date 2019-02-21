@@ -11070,8 +11070,8 @@ function displayIntegerInput({theme: {classes: css}, type, cb}) {
   var min = validator.getRange(type).MIN
   var max = validator.getRange(type).MAX
   var title = `Valid values for type ${type} are from ${min} to ${max}`
-  var num = bel`<input id=${type} type="text" class=${css.integerValue} value="0" oninput=${(e)=>sliderUpdate(e, type)} onkeydown=${(e)=>keysUpdating(e, type)}>`
-  var slider = bel`<input id=${type} class=${css.integerSlider} type="range" title=${title} min=${min} max=${max} value="0" step=1 oninput=${(e)=>numUpdate(e, type)}>`
+  var num = bel`<input data-type=${type} type="text" class=${css.integerValue} value="0" oninput=${(e)=>sliderUpdate(e, type)} onkeydown=${(e)=>keysUpdating(e, type)}>`
+  var slider = bel`<input data-type=${type} class=${css.integerSlider} type="range" title=${title} min=${min} max=${max} value="0" step=1 oninput=${(e)=>numUpdate(e, type)}>`
   return bel`
     <div class=${css.integerField}>
       ${slider}

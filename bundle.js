@@ -1,4 +1,40 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const csjs = require('csjs-inject')
+const inputinteger = require('../')
+
+document.body.innerHTML = `<style>
+.inputField {
+  color: #cccccc;
+  background-color: #666;
+}
+.integerValue {
+  color: #cccccc;
+  background-color: #666666;
+  width: 25%;
+}
+.integerSlider {
+  background: #333333;
+}
+.integerField {
+  width: 300px;
+}
+</style>`
+
+const classes = {
+  inputField: 'inputField',
+  integerValue: 'integerValue',
+  integerSlider: 'integerSlider',
+  integerField: 'integerField'
+}
+const log = document.createElement('pre')
+const el = inputinteger({ theme: { classes }, type: 'uint8', cb: (err, val) => {
+  if (err) log.appendChild(document.createTextNode(`${err}\n`))
+  else log.appendChild(document.createTextNode(`ok: ${val}\n`))
+} })
+document.body.appendChild(el)
+document.body.appendChild(log)
+
+},{"../":52,"csjs-inject":7}],2:[function(require,module,exports){
 var trailingNewlineRegex = /\n[\s]+$/
 var leadingNewlineRegex = /^\n[\s]+/
 var trailingSpaceRegex = /[\s]+$/
@@ -131,7 +167,7 @@ module.exports = function appendChild (el, childs) {
   }
 }
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 var hyperx = require('hyperx')
 var appendChild = require('./appendChild')
 
@@ -232,7 +268,7 @@ module.exports = hyperx(belCreateElement, {comments: true})
 module.exports.default = module.exports
 module.exports.createElement = belCreateElement
 
-},{"./appendChild":1,"hyperx":27}],3:[function(require,module,exports){
+},{"./appendChild":2,"hyperx":28}],4:[function(require,module,exports){
 ;(function (globalObject) {
   'use strict';
 
@@ -3094,7 +3130,7 @@ module.exports.createElement = belCreateElement
   }
 })(this);
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -3113,12 +3149,12 @@ function csjsInserter() {
 module.exports = csjsInserter;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"csjs":9,"insert-css":28}],5:[function(require,module,exports){
+},{"csjs":10,"insert-css":29}],6:[function(require,module,exports){
 'use strict';
 
 module.exports = require('csjs/get-css');
 
-},{"csjs/get-css":8}],6:[function(require,module,exports){
+},{"csjs/get-css":9}],7:[function(require,module,exports){
 'use strict';
 
 var csjs = require('./csjs');
@@ -3127,17 +3163,17 @@ module.exports = csjs;
 module.exports.csjs = csjs;
 module.exports.getCss = require('./get-css');
 
-},{"./csjs":4,"./get-css":5}],7:[function(require,module,exports){
+},{"./csjs":5,"./get-css":6}],8:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/csjs');
 
-},{"./lib/csjs":13}],8:[function(require,module,exports){
+},{"./lib/csjs":14}],9:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/get-css');
 
-},{"./lib/get-css":17}],9:[function(require,module,exports){
+},{"./lib/get-css":18}],10:[function(require,module,exports){
 'use strict';
 
 var csjs = require('./csjs');
@@ -3147,7 +3183,7 @@ module.exports.csjs = csjs;
 module.exports.noScope = csjs({ noscope: true });
 module.exports.getCss = require('./get-css');
 
-},{"./csjs":7,"./get-css":8}],10:[function(require,module,exports){
+},{"./csjs":8,"./get-css":9}],11:[function(require,module,exports){
 'use strict';
 
 /**
@@ -3169,7 +3205,7 @@ module.exports = function encode(integer) {
   return str;
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 var makeComposition = require('./composition').makeComposition;
@@ -3213,7 +3249,7 @@ function getClassChain(obj) {
   return acc;
 }
 
-},{"./composition":12}],12:[function(require,module,exports){
+},{"./composition":13}],13:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -3293,7 +3329,7 @@ function ignoreComposition(values) {
  */
 function Composition() {}
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 var extractExtends = require('./css-extract-extends');
@@ -3371,7 +3407,7 @@ function without(obj, unwanted) {
   }, {});
 }
 
-},{"./build-exports":11,"./composition":12,"./css-extract-extends":14,"./css-key":15,"./extract-exports":16,"./scopeify":22}],14:[function(require,module,exports){
+},{"./build-exports":12,"./composition":13,"./css-extract-extends":15,"./css-key":16,"./extract-exports":17,"./scopeify":23}],15:[function(require,module,exports){
 'use strict';
 
 var makeComposition = require('./composition').makeComposition;
@@ -3424,7 +3460,7 @@ function getClassName(str) {
   return trimmed[0] === '.' ? trimmed.substr(1) : trimmed;
 }
 
-},{"./composition":12}],15:[function(require,module,exports){
+},{"./composition":13}],16:[function(require,module,exports){
 'use strict';
 
 /**
@@ -3434,7 +3470,7 @@ function getClassName(str) {
 
 module.exports = ' css ';
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 var regex = require('./regex');
@@ -3461,7 +3497,7 @@ function getExport(css, regex) {
   return prop;
 }
 
-},{"./regex":19}],17:[function(require,module,exports){
+},{"./regex":20}],18:[function(require,module,exports){
 'use strict';
 
 var cssKey = require('./css-key');
@@ -3470,7 +3506,7 @@ module.exports = function getCss(csjs) {
   return csjs[cssKey];
 };
 
-},{"./css-key":15}],18:[function(require,module,exports){
+},{"./css-key":16}],19:[function(require,module,exports){
 'use strict';
 
 /**
@@ -3488,7 +3524,7 @@ module.exports = function hashStr(str) {
   return hash >>> 0;
 };
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 var findClasses = /(\.)(?!\d)([^\s\.,{\[>+~#:)]*)(?![^{]*})/.source;
@@ -3504,7 +3540,7 @@ module.exports = {
   ignoreComments: ignoreComments,
 };
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 var ignoreComments = require('./regex').ignoreComments;
 
 module.exports = replaceAnimations;
@@ -3535,7 +3571,7 @@ function replaceAnimations(result) {
   return result;
 }
 
-},{"./regex":19}],21:[function(require,module,exports){
+},{"./regex":20}],22:[function(require,module,exports){
 'use strict';
 
 var encode = require('./base62-encode');
@@ -3549,7 +3585,7 @@ module.exports = function fileScoper(fileSrc) {
   }
 };
 
-},{"./base62-encode":10,"./hash-string":18}],22:[function(require,module,exports){
+},{"./base62-encode":11,"./hash-string":19}],23:[function(require,module,exports){
 'use strict';
 
 var fileScoper = require('./scoped-name');
@@ -3590,7 +3626,7 @@ function scopify(css, ignores) {
   return replaceAnimations(result);
 }
 
-},{"./regex":19,"./replace-animations":20,"./scoped-name":21}],23:[function(require,module,exports){
+},{"./regex":20,"./replace-animations":21,"./scoped-name":22}],24:[function(require,module,exports){
 // This was ported from https://github.com/emn178/js-sha3, with some minor
 // modifications and pruning. It is licensed under MIT:
 //
@@ -3930,7 +3966,7 @@ module.exports = {
   keccak256s: keccak(256),
   keccak512s: keccak(512)
 };
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
 
 var BN = require('bn.js');
@@ -4099,7 +4135,7 @@ module.exports = {
   fromWei: fromWei,
   toWei: toWei
 };
-},{"bn.js":25,"number-to-bn":31}],25:[function(require,module,exports){
+},{"bn.js":26,"number-to-bn":32}],26:[function(require,module,exports){
 (function (module, exports) {
   'use strict';
 
@@ -7528,7 +7564,7 @@ module.exports = {
   };
 })(typeof module === 'undefined' || module, this);
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 module.exports = attributeToProperty
 
 var transform = {
@@ -7549,7 +7585,7 @@ function attributeToProperty (h) {
   }
 }
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 var attrToProp = require('hyperscript-attribute-to-property')
 
 var VAR = 0, TEXT = 1, OPEN = 2, CLOSE = 3, ATTR = 4
@@ -7845,7 +7881,7 @@ var closeRE = RegExp('^(' + [
 ].join('|') + ')(?:[\.#][a-zA-Z0-9\u007F-\uFFFF_:-]+)*$')
 function selfClosing (tag) { return closeRE.test(tag) }
 
-},{"hyperscript-attribute-to-property":26}],28:[function(require,module,exports){
+},{"hyperscript-attribute-to-property":27}],29:[function(require,module,exports){
 var inserted = {};
 
 module.exports = function (css, options) {
@@ -7869,7 +7905,7 @@ module.exports = function (css, options) {
     }
 };
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /**
  * Returns a `Boolean` on whether or not the a `String` starts with '0x'
  * @param {String} str the string input value
@@ -7884,9 +7920,9 @@ module.exports = function isHexPrefixed(str) {
   return str.slice(0, 2) === '0x';
 }
 
-},{}],30:[function(require,module,exports){
-arguments[4][25][0].apply(exports,arguments)
-},{"dup":25}],31:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
+arguments[4][26][0].apply(exports,arguments)
+},{"dup":26}],32:[function(require,module,exports){
 var BN = require('bn.js');
 var stripHexPrefix = require('strip-hex-prefix');
 
@@ -7926,11 +7962,11 @@ module.exports = function numberToBN(arg) {
   throw new Error('[number-to-bn] while converting number ' + JSON.stringify(arg) + ' to BN.js instance, error: invalid number value. Value must be an integer, hex string, BN or BigNumber instance. Note, decimals are not supported.');
 }
 
-},{"bn.js":30,"strip-hex-prefix":44}],32:[function(require,module,exports){
+},{"bn.js":31,"strip-hex-prefix":45}],33:[function(require,module,exports){
 module.exports = window.crypto;
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 module.exports = require('crypto');
-},{"crypto":32}],34:[function(require,module,exports){
+},{"crypto":33}],35:[function(require,module,exports){
 var randomHex = function(size, callback) {
     var crypto = require('./crypto.js');
     var isCallback = (typeof callback === 'function');
@@ -7996,7 +8032,7 @@ var randomHex = function(size, callback) {
 
 module.exports = randomHex;
 
-},{"./crypto.js":33}],35:[function(require,module,exports){
+},{"./crypto.js":34}],36:[function(require,module,exports){
 const getMessage = require('./lib/getMessage');
 const getRange = require('./lib/getRange');
 const isAddress = require('./lib/isAddress');
@@ -8018,7 +8054,7 @@ const validator = {
 };
 
 module.exports = validator;
-},{"./lib/getMessage":36,"./lib/getRange":37,"./lib/isAddress":38,"./lib/isBoolean":39,"./lib/isInt":40,"./lib/isUint":41,"./lib/isValid":42}],36:[function(require,module,exports){
+},{"./lib/getMessage":37,"./lib/getRange":38,"./lib/isAddress":39,"./lib/isBoolean":40,"./lib/isInt":41,"./lib/isUint":42,"./lib/isValid":43}],37:[function(require,module,exports){
 const assertString = require('./util/assertString');
 const isValid = require('./isValid');
 
@@ -8032,7 +8068,7 @@ function getMessage(type, str) {
   if (type.search(/\bbool/) != -1) return 'The value is not a boolean.';
   if (type.search(/\baddress/) != -1) return 'The value is not a valid address.';
 }
-},{"./isValid":42,"./util/assertString":43}],37:[function(require,module,exports){
+},{"./isValid":43,"./util/assertString":44}],38:[function(require,module,exports){
 const bigNumber = require('bignumber.js');
 const assertString = require('./util/assertString');
 
@@ -8070,7 +8106,7 @@ function getIntRange(type) {
     return range;
   }
 }
-},{"./util/assertString":43,"bignumber.js":3}],38:[function(require,module,exports){
+},{"./util/assertString":44,"bignumber.js":4}],39:[function(require,module,exports){
 const assertString = require('./util/assertString');
 var Web3Utils = require('web3-utils');
 
@@ -8080,7 +8116,7 @@ function isAddress(str) {
   assertString(str);
   return Web3Utils.isAddress(str);
 }
-},{"./util/assertString":43,"web3-utils":48}],39:[function(require,module,exports){
+},{"./util/assertString":44,"web3-utils":49}],40:[function(require,module,exports){
 const assertString = require('./util/assertString');
 
 module.exports = isBoolean;
@@ -8089,7 +8125,7 @@ function isBoolean(str) {
   assertString(str);
   return (['true', 'false'].indexOf(str) >= 0);
 }
-},{"./util/assertString":43}],40:[function(require,module,exports){
+},{"./util/assertString":44}],41:[function(require,module,exports){
 // 帶符號整型
 const BigNumber = require('bignumber.js');
 const assertString = require('./util/assertString');
@@ -8101,7 +8137,7 @@ function isInt(str, exponent) {
   let num = new BigNumber(str);
   return num.isInteger() && num.gte(-(Math.pow(2, exponent) / 2)) && num.lte((Math.pow(2, exponent) / 2) - 1);
 }
-},{"./util/assertString":43,"bignumber.js":3}],41:[function(require,module,exports){
+},{"./util/assertString":44,"bignumber.js":4}],42:[function(require,module,exports){
 // 不帶符號整型
 const bigNumber = require('bignumber.js');
 const assertString = require('./util/assertString');
@@ -8113,7 +8149,7 @@ function isUint(str, exponent) {
   let num = bigNumber(str);
   return num.isInteger() && num.gte(0) && num.lte(Math.pow(2, exponent) - 1);
 }
-},{"./util/assertString":43,"bignumber.js":3}],42:[function(require,module,exports){
+},{"./util/assertString":44,"bignumber.js":4}],43:[function(require,module,exports){
 const assertString = require('./util/assertString');
 const isAddress = require('./isAddress');
 const isBoolean = require('./isBoolean');
@@ -8131,7 +8167,7 @@ function isValid(type, value) {
   if (type.search(/\baddress/) != -1) return isAddress(value);
   return true;
 }
-},{"./isAddress":38,"./isBoolean":39,"./isInt":40,"./isUint":41,"./util/assertString":43}],43:[function(require,module,exports){
+},{"./isAddress":39,"./isBoolean":40,"./isInt":41,"./isUint":42,"./util/assertString":44}],44:[function(require,module,exports){
 module.exports = assertString;
 
 function assertString(input) {
@@ -8152,7 +8188,7 @@ function assertString(input) {
     throw new TypeError(`Expected string but received ${invalidType}.`);
   }
 }
-},{}],44:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 var isHexPrefixed = require('is-hex-prefixed');
 
 /**
@@ -8168,7 +8204,7 @@ module.exports = function stripHexPrefix(str) {
   return isHexPrefixed(str) ? str.slice(2) : str;
 }
 
-},{"is-hex-prefixed":29}],45:[function(require,module,exports){
+},{"is-hex-prefixed":30}],46:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -9718,7 +9754,7 @@ module.exports = function stripHexPrefix(str) {
   }
 }.call(this));
 
-},{}],46:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 (function (global){
 /*! https://mths.be/utf8js v2.0.0 by @mathias */
 ;(function(root) {
@@ -9966,9 +10002,9 @@ module.exports = function stripHexPrefix(str) {
 }(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],47:[function(require,module,exports){
-arguments[4][25][0].apply(exports,arguments)
-},{"dup":25}],48:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
+arguments[4][26][0].apply(exports,arguments)
+},{"dup":26}],49:[function(require,module,exports){
 /*
  This file is part of web3.js.
 
@@ -10334,7 +10370,7 @@ module.exports = {
 };
 
 
-},{"./soliditySha3.js":49,"./utils.js":50,"ethjs-unit":24,"randomhex":34,"underscore":45}],49:[function(require,module,exports){
+},{"./soliditySha3.js":50,"./utils.js":51,"ethjs-unit":25,"randomhex":35,"underscore":46}],50:[function(require,module,exports){
 /*
  This file is part of web3.js.
 
@@ -10581,7 +10617,7 @@ var soliditySha3 = function () {
 
 module.exports = soliditySha3;
 
-},{"./utils.js":50,"bn.js":47,"underscore":45}],50:[function(require,module,exports){
+},{"./utils.js":51,"bn.js":48,"underscore":46}],51:[function(require,module,exports){
 /*
  This file is part of web3.js.
 
@@ -11054,44 +11090,35 @@ module.exports = {
     sha3: sha3
 };
 
-},{"bn.js":47,"eth-lib/lib/hash":23,"number-to-bn":31,"underscore":45,"utf8":46}],51:[function(require,module,exports){
-var bel = require('bel')
-var csjs = require('csjs-inject')
-var validator = require('solidity-validator')
-var bigNumber = require('bignumber.js')
+},{"bn.js":48,"eth-lib/lib/hash":24,"number-to-bn":32,"underscore":46,"utf8":47}],52:[function(require,module,exports){
+const bel = require('bel')
+const csjs = require('csjs-inject')
+const validator = require('solidity-validator')
+const bigNumber = require('bignumber.js')
 
 module.exports = displayIntegerInput
 
-/* ---------------------
-
------------------------ */
-
-function displayIntegerInput({theme: {classes: css}, type, cb}) {
-  var min = validator.getRange(type).MIN
-  var max = validator.getRange(type).MAX
-  var title = `Valid values for type ${type} are from ${min} to ${max}`
-  var num = bel`<input data-type=${type} type="text" class=${css.integerValue} value="0" oninput=${(e)=>sliderUpdate(e, type)} onkeydown=${(e)=>keysUpdating(e, type)}>`
-  var slider = bel`<input data-type=${type} class=${css.integerSlider} type="range" title=${title} min=${min} max=${max} value="0" step=1 oninput=${(e)=>numUpdate(e, type)}>`
-  return bel`
-    <div class=${css.integerField}>
-      ${slider}
-      ${num}
-    </div>
-  `
+function displayIntegerInput ({ theme: { classes: css }, type, cb }) {
+  const min = validator.getRange(type).MIN
+  const max = validator.getRange(type).MAX
+  const title = `Valid values for type ${type} are from ${min} to ${max}`
+  const num = bel`<input data-type=${type} type="text" class=${css.integerValue} value="0" oninput=${(e)=>sliderUpdate(e, type)} onkeydown=${(e)=>keysUpdating(e, type)}>`
+  const slider = bel`<input data-type=${type} class=${css.integerSlider} type="range" title=${title} min=${min} max=${max} value="0" step=1 oninput=${(e)=>numUpdate(e, type)}>`
+  return bel`<div class=${css.integerField}>
+    ${slider}
+    ${num}
+  </div>`
   function numUpdate (e, type) {
     num.value = num.title = bigNumber(e.target.value).toFixed(0)
     validate(e, type)
   }
-
   function validate (e, type) {
-    var msg = validator.getMessage(type, e.target.value)
-    if (msg) cb(msg)
-    else cb(null)
+    const value = e.target.value
+    cb(validator.getMessage(type, value), value)
   }
-
   function keysUpdating (e, type) {
-    var key = e.which
-    var val = parseInt(e.target.value)
+    const key = e.which
+    const val = parseInt(e.target.value)
     if (key === 38 && val != slider.max) {
       slider.value = num.value = val + 1
     }
@@ -11100,7 +11127,6 @@ function displayIntegerInput({theme: {classes: css}, type, cb}) {
     }
     validate(e, type)
   }
-
   function sliderUpdate (e, type) {
     if (e.target.value === '') {
       slider.value = num.value = 0
@@ -11111,4 +11137,4 @@ function displayIntegerInput({theme: {classes: css}, type, cb}) {
   }
 }
 
-},{"bel":2,"bignumber.js":3,"csjs-inject":6,"solidity-validator":35}]},{},[51]);
+},{"bel":3,"bignumber.js":4,"csjs-inject":7,"solidity-validator":36}]},{},[1]);

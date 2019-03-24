@@ -1,11 +1,11 @@
 {
   "name": "input-integer",
-  "version": "3.0.5",
+  "version": "3.1.0",
   "description": "An integer-input-type component built with bel and csjs-inject",
-  "main": "src/index.js",
+  "main": "src/input-integer.js",
   "scripts": {
-    "start": "budo src/index.js:bundle.js --dir ./ --live --open",
-    "build": "browserify src/index.js > bundle.js"
+    "start": "budo demo/demo.js:bundle.js --dir . --title $npm_package_name --force-default-index --ssl --live --open",
+    "build": "browserify demo/demo.js -o bundle.js"
   },
   "repository": {
     "type": "git",

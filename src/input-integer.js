@@ -22,7 +22,7 @@ function displayIntegerInput ({ theme: { classes: css }, type, cb }) {
   }
   function validate (e, splitType) {
     const value = e.target.value
-    cb(validator.getMessage(type, value), value)
+    cb(validator.getMessage(splitType, value), value)
   }
   function keysUpdating (e, splitType) {
     const key = e.which

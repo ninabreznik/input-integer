@@ -10,7 +10,7 @@ function displayIntegerInput ({ theme: { classes: css }, type, cb }) {
   const min = validator.getRange(splitType).MIN
   const max = validator.getRange(splitType).MAX
   const title = `Valid values for type ${splitType} are from ${min} to ${max}`
-  const num = bel`<input data-type=${splitType} type="text" class=${css.integerValue} value="0" oninput=${(e)=>sliderUpdate(e, splitType)} onkeydown=${(e)=>keysUpdating(e, splitType)}>`
+  const num = bel`<input data-type=${splitType} type="text" class=${css.integerValue} value="0" onclick="${(e)=>e.target.select()}" oninput=${(e)=>sliderUpdate(e, splitType)} onkeydown=${(e)=>keysUpdating(e, splitType)}>`
   const slider = bel`<input data-type=${splitType} class=${css.integerSlider} type="range" title=${title} min=${min} max=${max} value="0" step=1 oninput=${(e)=>numUpdate(e, splitType)}>`
   return bel`<div class=${css.integerField}>
     ${slider}

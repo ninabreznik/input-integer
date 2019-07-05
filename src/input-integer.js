@@ -10,8 +10,8 @@ function displayIntegerInput ({ theme: { classes: css }, type, cb }) {
   const min = validator.getRange(splitType).MIN
   const max = validator.getRange(splitType).MAX
   const title = `Valid values for type ${splitType} are from ${min} to ${max}`
-  const num = bel`<input data-type=${splitType} type="text" class=${css.integerValue} value="0" onclick="${(e)=>e.target.select()}" oninput=${(e)=>sliderUpdate(e, splitType)} onkeydown=${(e)=>keysUpdating(e, splitType)}>`
-  const slider = bel`<input data-type=${splitType} class=${css.integerSlider} type="range" title=${title} min=${min} max=${max} value="0" step=1 oninput=${(e)=>numUpdate(e, splitType)}>`
+  const num = bel`<input data-type=${splitType} type="text" class=${css.integerValue} value="0" onclick="${(e)=>e.target.select()}" onchange=${(e)=>validate(e)} oninput=${(e)=>sliderUpdate(e, splitType)} onkeydown=${(e)=>keysUpdating(e, splitType)}>`
+  const slider = bel`<input data-type=${splitType} class=${css.integerSlider} type="range" title=${title} min=${min} max=${max} value="0" step=1 onchange=${(e)=>validate(e)} oninput=${(e)=>numUpdate(e, splitType)}>`
   return bel`<div class=${css.integerField}>
     ${slider}
     ${num}
@@ -20,9 +20,9 @@ function displayIntegerInput ({ theme: { classes: css }, type, cb }) {
     num.value = num.title = bigNumber(e.target.value).toFixed(0)
     validate(e, splitType)
   }
-  function validate (e, splitType) {
+  function validate (e) {
     const value = e.target.value
-    cb(validator.getMessage(splitType, value), value)
+    cb(validator.getMessage(splitType, value), e.target, value)
   }
   function keysUpdating (e, splitType) {
     const key = e.which
@@ -33,7 +33,7 @@ function displayIntegerInput ({ theme: { classes: css }, type, cb }) {
     else if (key === 40 && val != slider.min) {
       slider.value = num.value = val - 1
     }
-    validate(e, splitType)
+    validate(e)
   }
   function sliderUpdate (e, splitType) {
     if (e.target.value === '') {
